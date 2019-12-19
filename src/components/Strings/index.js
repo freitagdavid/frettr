@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
 import String from "../String"
-import { useApp } from "../../app/"
+import { useApp } from "../../overmind"
 import shortid from 'shortid';
 const Strings = props => {
     const { className } = props;

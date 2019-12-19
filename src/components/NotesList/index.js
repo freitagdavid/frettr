@@ -1,6 +1,6 @@
 import React from 'react';
 import Note from '../Note'
-import { useApp } from '../../app/';
+import { useApp } from '../../overmind';
 import shortid from 'shortid'
 const NotesList = props => {
 

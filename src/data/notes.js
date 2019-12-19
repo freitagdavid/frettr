@@ -2,61 +2,73 @@ export const notes = [
     {
         semi: false,
         primary: "A",
-        color: "maroon"
+        color: "maroon",
+        id: 0
     },
     {
         semi: true,
         primary: "A♯",
-        secondary: "B♭"
+        secondary: "B♭",
+        id: 1
     },
     {
         semi: false,
         primary: "B",
-        color: "olive"
+        color: "olive",
+        id: 2
     },
     {
         semi: false,
         primary: "C",
-        color: "brown"
+        color: "brown",
+        id: 3
     },
     {
         semi: true,
         primary: "C♯",
-        secondary: "D♭"
+        secondary: "D♭",
+        id: 4
     },
     {
         semi: false,
         primary: "D",
-        color: "teal"
+        color: "teal",
+        id: 5
     },
     {
         semi: true,
         primary: "D♯",
-        secondary: "E♭"
+        secondary: "E♭",
+        id: 6
     },
     {
         semi: false,
         primary: "E",
-        color: "purple"
+        color: "purple",
+        id: 7
     },
     {
         semi: false,
         primary: "F",
-        color: "violet"
+        color: "violet",
+        id: 8
     },
     {
         semi: true,
         primary: "F♯",
-        secondary: "G♭"
+        secondary: "G♭",
+        id: 9
     },
     {
         semi: false,
         primary: "G",
-        color: "navy"
+        color: "navy",
+        id: 10
     },
     {
         semi: true,
         primary: "G♯",
-        secondary: "A♭"
+        secondary: "A♭",
+        id: 11
     }
 ]

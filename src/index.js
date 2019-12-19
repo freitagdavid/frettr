@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createOvermind } from 'overmind'
 import { Provider } from "overmind-react"
-import { config } from "./app/"
+import { config } from "./overmind"
 
 export const overmind = createOvermind(config, {
     devtools: true
