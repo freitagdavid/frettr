@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useApp } from '../../app/'
+import { useApp } from '../../overmind'
 import Note from '../Note'
 import styled from 'styled-components'
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApp } from '../../app/'
+import { useApp } from '../../overmind'
 import styled from 'styled-components'
 import Tuning from '../Tuning'
 import shortid from 'shortid';
