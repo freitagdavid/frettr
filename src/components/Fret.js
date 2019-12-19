@@ -27,11 +27,6 @@ const Fret = props => {
         return state.strings[string].frets[0].color
     }
 
-    const contextMenu = (e) => {
-        e.preventDefault();
-        toggleActive();
-    }
-
     return (
         <div className={ `multi-action ${className}` }>
             <Note onClick={ () => actions.toggleHighlight({ string, fret }) } note={ note } prevNoteColor={ prevNoteColor } nextNoteColor={ nextNoteColor } />

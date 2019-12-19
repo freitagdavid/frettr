@@ -8,26 +8,19 @@ const Tuner = props => {
     const { state } = useApp();
 
     const note = state.strings[string].frets[0];
+    console.log(note)
 
     const prevNoteColor = () => {
         return state.strings[string].frets[23].color
     }
 
     const nextNoteColor = () => {
-        return state.strings[string].frets[0].color
-    }
-
-    const genNotes = () => {
-        const out = [];
-        for (let i = 0; i < state.numStrings; i++) {
-            out.push(<Note note={ state.strings[i].frets[0] } prevNoteColor={ () => prevNoteColor(i) } nextNoteColor={ () => nextNoteColor(i) } />)
-        }
-        return out;
+        return state.strings[string].frets[1].color
     }
 
     return (
         <div className={ className }>
-            <Note string={ string } fret={ 0 } prevNoteColor={ prevNoteColor } nextNoteColor={ nextNoteColor } note={ note } />
+            <Note prevNoteColor={ prevNoteColor } nextNoteColor={ nextNoteColor } note={ note } />
         </div>
     )
 };

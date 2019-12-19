@@ -1,6 +1,5 @@
 export const onInitialize = ({ state, actions, effects }, instance) => {
     const loaded = effects.storage.loadState();
-    console.log(loaded);
 
     loaded.forEach(item => {
         if (item.data !== null) {

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 import String from './String'
 import { useApp } from '../overmind'
-import Tuner from './Tuner';
 
 const GuitarDisplay = props => {
     const { className } = props;

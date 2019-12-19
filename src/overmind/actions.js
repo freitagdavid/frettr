@@ -1,12 +1,10 @@
-import shortid from 'shortid'
 import { memoize } from "../helpers/memoize"
 import { notes } from "../data/notes"
-import { action } from 'overmind'
 
 export const generateStrings = ({ state, actions }) => {
-    const { keys, currKey, noteInfo, numStrings } = state
+    const { numStrings } = state
     const out = [];
-    for (let i = 0; i < state.numStrings; i++) {
+    for (let i = 0; i < numStrings; i++) {
         out[i] = { get frets() { return actions.getFrets(i) } }
     }
     state.strings = out;

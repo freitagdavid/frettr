@@ -13,7 +13,6 @@ const Note = props => {
     }
 
     const contextMenu = (e) => {
-        console.log("test")
         e.preventDefault();
         toggleActive();
     }
@@ -77,7 +76,7 @@ const StyledNote = styled(Note)`
     .single-note {
         background: ${props => props.note.color};
     }
-    box-shadow: ${props => console.log(props.note.highlighted)};
+    /* box-shadow: ${props => console.log(props.note.highlighted)}; */
 `
 
 export default StyledNote;
