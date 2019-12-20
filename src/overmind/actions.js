@@ -17,7 +17,7 @@ export const getNoteInfo = ({ state }, noteId) => {
 export const getFrets = ({ state, actions }, string) => {
     const { keys, currKey, numStrings } = state;
     const frets = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 25; i++) {
         frets.push(
             {
                 get noteInfo() { return state.noteInfo[(keys[numStrings][currKey][string] + i) % 12] },
@@ -36,7 +36,7 @@ export const getFrets = ({ state, actions }, string) => {
 export const populateString = memoize(({ actions }, stringNote) => {
 
     const frets = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 25; i++) {
         frets.push(
             {
                 get noteInfo() { return notes[(stringNote + i) % 12] },
@@ -68,7 +68,9 @@ export const incrementStrings = ({ state, actions }) => {
 }
 
 export const incrementOffset = ({ state }) => {
-    state.offset++
+    if (state.offset < 12) {
+        state.offset++
+    }
 }
 
 export const decrementOffset = ({ state }) => {
