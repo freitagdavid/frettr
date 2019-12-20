@@ -1,5 +1,4 @@
-import { memoize } from "../helpers/memoize"
-import { notes } from "../data/notes"
+import { mutate, filter, pipe } from 'overmind';
 
 export const generateStrings = ({ state, actions }) => {
     const { numStrings } = state
@@ -33,23 +32,23 @@ export const getFrets = ({ state, actions }, string) => {
     return frets;
 }
 
-export const populateString = memoize(({ actions }, stringNote) => {
+// export const populateString = memoize(({ actions }, stringNote) => {
 
-    const frets = [];
-    for (let i = 0; i < 25; i++) {
-        frets.push(
-            {
-                get noteInfo() { return notes[(stringNote + i) % 12] },
-                highlighted: false,
-                color: null,
-                sharpEnabled: true,
-                flatEnabled: true,
-                coords: [stringNote, i]
-            }
-        )
-    }
-    return frets;
-})
+//     const frets = [];
+//     for (let i = 0; i < 25; i++) {
+//         frets.push(
+//             {
+//                 get noteInfo() { return notes[(stringNote + i) % 12] },
+//                 highlighted: false,
+//                 color: null,
+//                 sharpEnabled: true,
+//                 flatEnabled: true,
+//                 coords: [stringNote, i]
+//             }
+//         )
+//     }
+//     return frets;
+// })
 
 export const toggleHighlight = ({ state }, payload) => {
     const { string, fret } = payload;
@@ -67,17 +66,19 @@ export const incrementStrings = ({ state, actions }) => {
     state.strings.push(actions.populateString(0))
 }
 
-export const incrementOffset = ({ state }) => {
-    if (state.offset < 12) {
-        state.offset++
-    }
-}
+export const incrementOffset = pipe(
+    filter(({ state }) => state.offset < 12),
+    mutate(({ state }) => {
+        state.offset += 1;
+    })
+)
 
-export const decrementOffset = ({ state }) => {
-    if (state.offset > 0) {
-        state.offset--
-    }
-}
+export const decrementOffset = pipe(
+    filter(({ state }) => state.offset > 0),
+    mutate(({ state }) => {
+        state.offset -= 1;
+    })
+)
 
 export const saveKey = ({ state }, name) => {
     state.keys[state.numStrings][name] = state.keys[state.numStrings].custom;
@@ -132,7 +133,7 @@ export const increaseTuning = ({ state, actions }, payload) => {
         state.keys[state.numStrings].custom[string]++;
     }
 
-    actions.generateStrings();
+    state.strings[string].frets = actions.getFrets(string);
 }
 
 export const decreaseTuning = ({ state, actions }, payload) => {
@@ -148,5 +149,5 @@ export const decreaseTuning = ({ state, actions }, payload) => {
         state.keys[state.numStrings].custom[string]--;
     }
 
-    actions.generateStrings();
+    state.strings[string].frets = actions.getFrets(string);
 }
