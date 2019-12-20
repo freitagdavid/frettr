@@ -72,7 +72,9 @@ export const incrementOffset = ({ state }) => {
 }
 
 export const decrementOffset = ({ state }) => {
-    state.offset--
+    if (state.offset > 0) {
+        state.offset--
+    }
 }
 
 export const saveKey = ({ state }, name) => {

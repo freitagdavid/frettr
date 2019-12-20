@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import String from './String'
 import { useApp } from '../overmind'
+import FretNumbers from './FretNumbers';
 
 const GuitarDisplay = props => {
     const { className } = props;
@@ -18,6 +19,7 @@ const GuitarDisplay = props => {
         <div className={ className }>
             <div className="strings">
                 { strings() }
+                <FretNumbers />
             </div>
         </div>
     );
@@ -26,13 +28,9 @@ const GuitarDisplay = props => {
 const StyledGuitarDisplay = styled(GuitarDisplay)`
             width: 80%;
             height: 60%;
-            outline: red 1px solid;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
-            display: flex;
             .strings {
+                display: grid;
                 width: 100%;
             }
         `

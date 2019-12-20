@@ -32,10 +32,13 @@ const String = props => {
 };
 
 const StyledString = styled(String)`
-    display: flex;
+
+    display: grid;
     align-items: center;
     width: 100%;
+    grid-template-columns: 8% auto;
     .tuner {
+        justify-self: center;
         display: flex;
         align-items: center;
         padding: 10px 20px;
@@ -59,9 +62,10 @@ const StyledString = styled(String)`
             width: 100%;
         }
         .frets {
-            display: flex;
+            display: grid;
             width: 100%;
-            justify-content: space-around;
+            justify-content: space-between;
+            grid-template-columns: repeat(24, auto);
             .verticalLine {
                 border-right: black solid 5px;
                 height: 150%;
