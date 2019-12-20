@@ -18,7 +18,7 @@ const GuitarDisplay = props => {
     return (
         <div className={ className }>
             <div className="strings">
-                { strings() }
+                { state.strings.map((item, index) => <String string={ index } />) }
                 <FretNumbers />
             </div>
         </div>

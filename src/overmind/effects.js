@@ -12,7 +12,8 @@ export const storage = {
             { field: 'showSharps', data: JSON.parse(localStorage.getItem('showSharps')) },
             { field: 'offset', data: JSON.parse(localStorage.getItem('offset')) },
             { field: 'strings', data: JSON.parse(localStorage.getItem('strings')) },
-            { field: 'currentPage', data: JSON.parse(localStorage.getItem('currentPage')) }
+            { field: 'currentPage', data: JSON.parse(localStorage.getItem('currentPage')) },
+            { field: 'workingKey', data: JSON.parse(localStorage.getItem('workingKey')) }
         ]
     }
 }

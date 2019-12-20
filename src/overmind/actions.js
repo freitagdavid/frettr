@@ -14,12 +14,12 @@ export const getNoteInfo = ({ state }, noteId) => {
 }
 
 export const getFrets = ({ state, actions }, string) => {
-    const { keys, currKey, numStrings } = state;
+    const { keys, workingKey, numStrings } = state;
     const frets = [];
     for (let i = 0; i < 25; i++) {
         frets.push(
             {
-                get noteInfo() { return state.noteInfo[(keys[numStrings][currKey][string] + i) % 12] },
+                get noteInfo() { return state.noteInfo[(workingKey[string] + i) % 12] },
                 highlighted: false,
                 overRideColor: null,
                 get color() { return this.overRideColor !== null ? this.overRideColor : state.noteInfo[this.noteInfo.id].color },
@@ -32,24 +32,6 @@ export const getFrets = ({ state, actions }, string) => {
     return frets;
 }
 
-// export const populateString = memoize(({ actions }, stringNote) => {
-
-//     const frets = [];
-//     for (let i = 0; i < 25; i++) {
-//         frets.push(
-//             {
-//                 get noteInfo() { return notes[(stringNote + i) % 12] },
-//                 highlighted: false,
-//                 color: null,
-//                 sharpEnabled: true,
-//                 flatEnabled: true,
-//                 coords: [stringNote, i]
-//             }
-//         )
-//     }
-//     return frets;
-// })
-
 export const toggleHighlight = ({ state }, payload) => {
     const { string, fret } = payload;
     state.strings[string].frets[fret].highlighted = !state.strings[string].frets[fret].highlighted;
@@ -61,9 +43,27 @@ export const changeFretColor = ({ state }, string, fret, color) => {
 
 export const incrementStrings = ({ state, actions }) => {
     state.numStrings++;
-    state.keys = { ...state.keys, [state.numStrings]: { ...state.keys[state.numStrings], custom: Array(state.numStrings).fill(0) } };
+    state.workingKey = [...state.workingKey, 0];
+    actions.createCustomKey(state.numStrings)
     state.currKey = "custom";
-    state.strings.push(actions.populateString(0))
+    state.strings = [...state.strings, { frets: actions.getFrets(state.numStrings - 1) }]
+}
+
+export const decrementStrings = ({ state, actions }) => {
+    state.numStrings--;
+    state.workingKey.pop();
+    actions.createCustomKey(state.numStrings);
+    state.currKey = "custom";
+    state.strings.pop();
+}
+
+export const createCustomKey = ({ state }, strings) => {
+    try {
+        state.keys[strings]["custom"] = [...state.workingKey];
+    } catch {
+        state.keys[strings] = {};
+        state.keys[strings].custom = [...state.workingKey];
+    }
 }
 
 export const incrementOffset = pipe(
@@ -85,18 +85,11 @@ export const saveKey = ({ state }, name) => {
 }
 
 export const saveChord = ({ state }, name) => {
-    state.chords[state.currKey][name] = state.chords[state.currKey].custom
+    state.chords[state.currKey][name] = [...state.workingKey]
 }
 
 export const changeAllNoteColor = ({ state }, color, note) => {
     state.noteInfo[note].color = color;
-}
-
-export const decrementStrings = ({ state }) => {
-    state.numStrings--;
-    state.keys = { ...state.keys, [state.numStrings]: { ...state.keys[state.numStrings], custom: Array(state.numStrings).fill(0) } };
-    state.currKey = "custom";
-    state.strings.pop();
 }
 
 export const getFret = ({ state }, payload) => {
@@ -127,10 +120,10 @@ export const increaseTuning = ({ state, actions }, payload) => {
         state.currKey = "custom";
     }
 
-    if (state.keys[state.numStrings].custom[string] === 11) {
-        state.keys[state.numStrings].custom[string] = 0;
+    if (state.workingKey[string] === 11) {
+        state.workingKey[string] = 0;
     } else {
-        state.keys[state.numStrings].custom[string]++;
+        state.workingKey[string] += 1;
     }
 
     state.strings[string].frets = actions.getFrets(string);
@@ -143,10 +136,10 @@ export const decreaseTuning = ({ state, actions }, payload) => {
         state.currKey = "custom";
     }
 
-    if (state.keys[state.numStrings].custom[string] === 0) {
-        state.keys[state.numStrings].custom[string] = 11;
+    if (state.workingKey[string] === 0) {
+        state.workingKey[string] = 11;
     } else {
-        state.keys[state.numStrings].custom[string]--;
+        state.workingKey[string]--;
     }
 
     state.strings[string].frets = actions.getFrets(string);

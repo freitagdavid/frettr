@@ -11,6 +11,7 @@ export const state = {
             custom: [0, 0, 0, 0, 0, 0]
         }
     },
+    workingKey: [0, 0, 0, 0, 0, 0],
     numStrings: 6,
     flatsEnabled: true,
     sharpsEnabled: true,
