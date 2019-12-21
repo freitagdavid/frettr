@@ -37,11 +37,12 @@ const StyledString = styled(String)`
     align-items: center;
     width: 100%;
     grid-template-columns: 8% auto;
+    overflow: hidden;
     .tuner {
         justify-self: center;
         display: flex;
         align-items: center;
-        padding: 10px 20px;
+        padding: 0 20px;
         span {
             display: flex;
             width: 32px;
@@ -53,7 +54,6 @@ const StyledString = styled(String)`
     .string {
         display: flex;
         justify-items: space-around;
-        padding: 10px 0;
         width: 100%;
         .line {
             position: absolute;
@@ -68,7 +68,8 @@ const StyledString = styled(String)`
             grid-template-columns: repeat(24, auto);
             .verticalLine {
                 border-right: black solid 5px;
-                height: 150%;
+                height: 700%;
+                margin-top: -700%;
             }
         }
     }

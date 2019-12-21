@@ -27,8 +27,9 @@ const GuitarDisplay = props => {
 
 const StyledGuitarDisplay = styled(GuitarDisplay)`
             width: 80%;
-            height: 60%;
+            height: 70%;
             overflow: hidden;
+            display: flex;
             .strings {
                 display: grid;
                 width: 100%;
